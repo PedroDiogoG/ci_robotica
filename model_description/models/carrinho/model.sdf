@@ -1,0 +1,192 @@
+<?xml version='1.0'?>
+<sdf version='1.7'>
+  <model name='hot_wheels'>
+    <static>false</static>
+
+    <link name='base_link'>
+      <pose>0 0 0.12 0 0 0</pose>
+
+      <collision name='collision'>
+        <geometry>
+          <box>
+            <size>0.15 0.2 0.1</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name='visual'>
+        <geometry>
+          <box>
+            <size>0.15 0.2 0.1</size>
+          </box>
+        </geometry>
+
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Red</name>
+          </script>
+        </material>
+      </visual>
+
+      <visual name="hotwheels_logo_left">
+        <pose>-0.08 -0.015 0 -1.5708 3.1416 1.5708 </pose>
+        <geometry>
+          <mesh>
+            <uri>model://model_description/meshes/Hotwheels.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Yellow</name>
+          </script>
+        </material>
+      </visual>
+
+      <visual name="hotwheels_logo_right">
+        <pose>0.08 -0.015 0 -1.5708 0 -1.5708 </pose>
+        <geometry>
+          <mesh>
+            <uri>model://model_description/meshes/Hotwheels.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Yellow</name>
+          </script>
+        </material>
+      </visual>
+
+      <visual name="rubber_duck">
+        <pose>0 0 0.07 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <uri>model://model_description/meshes/Rubber_Duck.stl</uri>
+            <scale>0.001 0.001 0.001</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Yellow</name>
+          </script>
+        </material>
+      </visual>
+
+      <collision name='caster_wheel_collision'>
+      <pose>0 -0.07 -0.075 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>.025</radius>
+          </sphere>
+        </geometry>
+
+        <surface>
+          <friction>
+            <ode>
+              <mu>0</mu>
+              <mu2>0</mu2>
+              <slip1>1.0</slip1>
+              <slip2>1.0</slip2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+
+      <visual name='caster_wheel_visual'>
+      <pose>0 -0.07 -0.075 0 0 0</pose>
+        <geometry>
+          <sphere>
+            <radius>.025</radius>
+          </sphere>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Black</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+
+    <link name="left_wheel">
+      <pose>-0.075 0.07 0.07 -1.5707 0 1.5707 </pose>
+
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.01</length>
+          </cylinder>
+        </geometry>
+        </collision>
+
+      <visual name="visual">
+        <geometry>
+            <cylinder>
+            <radius>.05</radius>
+            <length>.01</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Black</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+
+    <link name="right_wheel">
+      <pose>0.075 0.07 0.07 0 1.5707 0 </pose>
+
+      <collision name="collision">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.01</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>.05</radius>
+            <length>.01</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Black</name>
+          </script>
+        </material>
+      </visual>
+    </link>
+
+      <joint type="revolute" name="left_wheel_joint">
+        <pose>0 0 0 0 0 0</pose>
+        <child>left_wheel</child>
+        <parent>base_link</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+        </axis>
+      </joint>
+
+      <joint type="revolute" name="right_wheel_joint">
+        <pose>0 0 0 0 0 0</pose>
+        <child>right_wheel</child>
+        <parent>base_link</parent>
+        <axis>
+          <xyz>1 0 0</xyz>
+        </axis>
+      </joint>
+  </model>
+
+
+</sdf>
