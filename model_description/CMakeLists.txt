@@ -12,6 +12,8 @@ install(
     launch
     models
     meshes
+    urdf
+    params
   DESTINATION share/${PROJECT_NAME}
 )
 
