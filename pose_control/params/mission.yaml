@@ -1,0 +1,17 @@
+mission_follower:
+  ros__parameters:
+    # Waypoints em sequência: [x1, y1, yaw1, x2, y2, yaw2, ...]  (mínimo 3 waypoints)
+    # Use sempre valores com ponto decimal (ex.: 0.0, não 0).
+    waypoints: [
+      1.0, 0.0, 0.0,      # WP 1: x, y, yaw (rad)
+      1.0, 1.0, 1.57,     # WP 2
+      0.0, 1.0, 3.14,     # WP 3
+      0.0, 0.0, 0.0       # WP 4
+    ]
+    waypoint_wait_time: 1.0   # s de espera em cada waypoint
+    frame_id: "odom"
+
+    # Tolerâncias de avanço. Mantenha >= às do manager.yaml, senão o manager
+    # para dentro da tolerância dele e o follower nunca considera que chegou.
+    pos_tolerance: 0.08     # m
+    yaw_tolerance: 0.10     # rad

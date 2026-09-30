@@ -5,8 +5,8 @@
   <link name="base_link">
     <inertial>
       <origin xyz="0 0 -0.04" rpy="0 0 0"/>
-      <mass value="1.9"/>
-      <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      <mass value="5.0"/>
+      <inertia ixx="0.0135" iyy="0.0208" izz="0.026" ixy="0" ixz="0" iyz="0"/>
     </inertial>
 
     <collision name="collision">
@@ -58,7 +58,7 @@
   <link name="caster_link">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.1"/>
+      <mass value="0.5"/>
       <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
     </inertial>
 
@@ -81,21 +81,21 @@
   <link name="left_wheel">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.2"/>
+      <mass value="1.0"/>
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
 
     <collision name="collision">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.05" length="0.01"/>
+        <cylinder radius="0.05" length="0.03"/>
       </geometry>
     </collision>
     
     <visual name="visual">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.05" length="0.01"/>
+        <cylinder radius="0.05" length="0.03"/>
       </geometry>
     </visual>
   </link>
@@ -104,21 +104,21 @@
   <link name="right_wheel">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <mass value="0.2"/>
+      <mass value="1.0"/>
       <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.001"/>
     </inertial>
 
     <collision name="collision">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.05" length="0.01"/>
+        <cylinder radius="0.05" length="0.03"/>
       </geometry>
     </collision>
 
     <visual name="visual">
       <origin xyz="0 0 0" rpy="0 0 0"/>
       <geometry>
-        <cylinder radius="0.05" length="0.01"/>
+        <cylinder radius="0.05" length="0.03"/>
       </geometry>
     </visual>
   </link>
@@ -137,7 +137,7 @@
     <child link="left_wheel"/>
     <origin xyz="-0.07 0.075 -0.05" rpy="-1.5708 0 0"/>
     <axis xyz="0 0 1"/>
-    <dynamics damping="0.1" friction="0.1"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
 
   <joint name="right_wheel_joint" type="continuous">
@@ -145,7 +145,7 @@
     <child link="right_wheel"/>
     <origin xyz="-0.07 -0.075 -0.05" rpy="-1.5708 0 0"/>
     <axis xyz="0 0 1"/>
-    <dynamics damping="0.1" friction="0.1"/>
+    <dynamics damping="0.0" friction="0.0"/>
   </joint>
 
   <!-- ROS 2 Control Interfaces -->
@@ -177,25 +177,16 @@
   <gazebo reference="caster_link">
     <mu1>0.0</mu1>
     <mu2>0.0</mu2>
-    <kp>1000000.0</kp>
-    <kd>100.0</kd>
-    <minDepth>0.001</minDepth>
   </gazebo>
 
   <gazebo reference="left_wheel">
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
-    <kp>1000000.0</kp>
-    <kd>100.0</kd>
-    <minDepth>0.001</minDepth>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
   </gazebo>
 
   <gazebo reference="right_wheel">
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
-    <kp>1000000.0</kp>
-    <kd>100.0</kd>
-    <minDepth>0.001</minDepth>
+    <mu1>5.0</mu1>
+    <mu2>5.0</mu2>
   </gazebo>
 
   <!-- Plugin -->
