@@ -17,4 +17,9 @@ install(
   DESTINATION share/${PROJECT_NAME}
 )
 
+install(
+  PROGRAMS scripts/gps_converter.py
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 ament_package()

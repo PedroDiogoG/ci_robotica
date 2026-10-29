@@ -39,8 +39,23 @@ def generate_launch_description():
         output='screen'
     )
 
+
+    # GPS sintetizado a partir da posição ruidosa do Gazebo (lat/lon/alt e XYZ).
+    gps_converter = Node(
+        package='model_description',
+        executable='gps_converter.py',
+        name='gps_converter',
+        output='screen',
+        parameters=[{'use_sim_time': True,
+                     'reference_latitude_deg': 0.0,
+                     'reference_longitude_deg': 0.0,
+                     'reference_altitude_m': 0.0,
+                     'position_stddev_m': 0.35}]
+    )
+
     return LaunchDescription([
         urdf_launch,
+        gps_converter,
         joint_state_spawner,
         diff_drive_spawner,
         teleop_node

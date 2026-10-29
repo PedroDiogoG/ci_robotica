@@ -1,10 +1,12 @@
 import os
+import xml.etree.ElementTree as ET
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.actions import Node
+from launch_ros.parameter_descriptions import ParameterValue
 
 def generate_launch_description():
 
@@ -14,7 +16,9 @@ def generate_launch_description():
     urdf_file_path = os.path.join(pkg_share, 'urdf', 'hot_wheels.urdf')
 
     with open(urdf_file_path, 'r') as infp:
-        robot_desc = infp.read()
+        # gazebo_ros2_control forwards this XML through the ROS argument parser.
+        # XML comments in the raw URDF make that parameter override fail.
+        robot_desc = ET.tostring(ET.fromstring(infp.read()), encoding='unicode')
 
     # Robot State Publisher 
     robot_state_publisher_node = Node(
@@ -22,7 +26,10 @@ def generate_launch_description():
         executable='robot_state_publisher',
         name='robot_state_publisher',
         output='screen',
-        parameters=[{'robot_description': robot_desc}]
+        parameters=[{
+            'robot_description': ParameterValue(robot_desc, value_type=str),
+            'use_sim_time': True
+        }]   
     )
 
     # Gazebo Classic
@@ -34,11 +41,17 @@ def generate_launch_description():
 
     # Spawn
     spawn_entity_node = Node(
-        package='gazebo_ros',
-        executable='spawn_entity.py',
-        arguments=['-topic', 'robot_description', '-entity', 'hot_wheels'],
-        output='screen'
-    )
+    package='gazebo_ros',
+    executable='spawn_entity.py',
+    arguments=[
+        '-topic', 'robot_description',
+        '-entity', 'hot_wheels',
+        '-x', '0.0',
+        '-y', '0.0',
+        '-z', '0.11'
+    ],
+    output='screen'
+)
 
     return LaunchDescription([
         robot_state_publisher_node,

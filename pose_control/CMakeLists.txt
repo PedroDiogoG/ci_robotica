@@ -46,6 +46,9 @@ ament_target_dependencies(mission_follower
 install(TARGETS manager mission_follower
   DESTINATION lib/${PROJECT_NAME})
 
+install(PROGRAMS scripts/figure_eight.py
+  DESTINATION lib/${PROJECT_NAME})
+
 # Launch e YAMLs de parâmetros
 install(DIRECTORY launch params
   DESTINATION share/${PROJECT_NAME})

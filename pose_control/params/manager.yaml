@@ -8,16 +8,17 @@ manager:
 
     # PID linear: erro eb_x -> velocidade linear v
     linear:
-      p: 0.8
+      p: 1.5
       i: 0.0
       d: 0.0
       i_max: 0.5
       i_min: -0.5
       antiwindup: true
 
-    # PID lateral: erro eb_y -> contribui para a velocidade angular w
+    # PID lateral: angulo alpha ate o alvo (rad) -> velocidade angular w
+    # Estabilidade da lei polar exige p > linear.p (aqui 2x)
     lateral:
-      p: 1.5
+      p: 3.0
       i: 0.0
       d: 0.05
       i_max: 1.0
@@ -26,7 +27,7 @@ manager:
 
     # PID angular: erro eb_theta -> contribui para a velocidade angular w
     angular:
-      p: 1.2
+      p: 2.0
       i: 0.0
       d: 0.05
       i_max: 1.0

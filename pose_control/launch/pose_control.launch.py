@@ -2,6 +2,7 @@ import os
 
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.conditions import IfCondition
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
@@ -74,6 +75,7 @@ def generate_launch_description():
         package='pose_control',
         executable='mission_follower',
         name='mission_follower',
+        condition=IfCondition(LaunchConfiguration('start_mission')),
         output='screen',
         parameters=[
             LaunchConfiguration('mission_params'),
@@ -82,6 +84,9 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        DeclareLaunchArgument(
+            'start_mission', default_value='true',
+            description='Set false to send individual poses manually on /target_pose'),
         use_sim_time_arg,
         manager_params_arg,
         mission_params_arg,
@@ -89,6 +94,6 @@ def generate_launch_description():
         joint_state_spawner,
         diff_drive_spawner,
         # teleop_node,
-        # manager_node,
-        # mission_node
+        manager_node,
+        mission_node
     ])
